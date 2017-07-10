@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Video Analytics</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Extra Style-->
+    <link href="assets/css/extra.css" rel="stylesheet" />
+    
+    <!-- JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Own Script -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/download2.js"></script>
+    <script src="assets/js/jquery.printElement.js"></script>
+
+<script type="text/javascript">
+
+</script>
+    
+</head>
+<body onLoad="init()">
+    <div id="wrapper" style="background-color:#515e67">
+      <!-- Top Bar -->  
+        <div class="navbar navbar-inverse  navbar-fixed-top" style="background-color:#424951 ">
+            <div class="adjust-nav"> 
+                <div >                  
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" style="color:white"><i class="fa fa-square-o "></i>&nbsp;Learning Video Analytics</a>
+                </div>
+                <div class="navbar-collapse collapse" id="topMenu" >
+                    <ul class="nav navbar-nav navbar-right" >
+                        <li><a href="#" class="topMenu" onClick="saveChart()">Save Chart</a></li>
+                        <li><a href="#" class="topMenu" onClick="printChart() ">Print Chart</a></li>
+                        <li><a href="#" class="topMenu" onClick="exportCSV() ">Export CSV File</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   <!-- Side Bar  -->
+        <nav class="navbar-default navbar-side" role="navigation"  >
+          
+            <div class="sidebar-collapse" >
+                <ul class="nav" id="main-menu" >
+                    <li class="text-center user-image-back" style="background-color: #728893">
+                        <img src="assets/img/find_user.png" class="img-responsive" />
+                    <li ><a href="#" ><em class="fa fa-desktop "></em> 
+                    	<span id="buttonSelect" style="margin-left:10px" >
+                    		Select Video Record File
+                     	</span>
+                     <span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#" class="file" style="width: 165px;display: inline-table;margin-bottom: 0px;margin-right: 12px"><i class="fa fa-desktop" ></i><span style="margin-bottom: 8px">First Video</span>
+                                <!--=============file import===================-->
+                                 <input type="file" name="" id="csvFile1" accept=".csv" onChange="readCsvFile(this)"></a><input type="checkbox" id="fileCheck1" style="width:15px;height:15px" onchange="statusChange()">
+                            </li>
+                            <li>
+                                 <a href="#" class="file" style="width: 165px;display: inline-table;margin-bottom: 0px;margin-right: 12px"><i class="fa fa-desktop" ></i>Second Video 
+                                 <input type="file" name="" id="csvFile2" onChange="readCsvFile(this)"></a><input type="checkbox" id="fileCheck2" style="width:15px;height:15px" onchange="statusChange()">
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-edit "></i>Select Interaction Type
+                       		<select id="action" size=1 style="width:140px">
+        						<option value=0> Stop</option>
+        						<option value=1> Pause</option>
+        						<option value=2> Skip</option>
+        						<option value=3> All</option>  
+    						</select> 
+                        </a>
+                    </li>
+                    <li>
+						<a href="#"><i class="fa fa-edit "></i>Select Learner for video 1
+                        <select id="learner" size=1 name="lr" style="width:140px">
+        					<option value=0> All</option>
+    					</select>    
+                        </a>
+                    </li>
+                    <li>
+						<a href="#"><i class="fa fa-edit "></i>Select Learner for video 2
+                        <select id="learner2" size=1 name="lr" style="width:140px">
+        					<option value=0> All</option>
+    					</select>    
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i>
+                        Select Chart Type   
+    						<select id="chartType" size=1 name="chartT" style="width:140px">
+        						<option value=0> Line Chart</option>
+        						<option value=1> Bar Chart</option>
+    						</select>
+                        </a>
+                    </li>
+                    <li> <a href="#" class="btn btn-primary" style="font-size:14px" onclick="calldrawTableChart()">Do Analytics</a></li>                   
+                </ul>
+            </div>
+        </nav>
+ <!-- =========================================== Main Page  ==============================================-->
+ 	<div id="page-wrapper">
+        <div id="page-inner">
+        	<div class="row">
+                   <!-- statistics -->
+                    <div id="" class="col-md-12" style="padding-top: 1px">
+                        <h4 style="font-weight: bold;margin-top: 3px">Video Information:</h4>
+                        <span class="staT">Video File 1:</span> <span id="spanF" class="staC">__</span>
+  						<span class="staT">Learners:</span> <span id="spanL" class="staC">__</span>
+  						<span class="staT">Interaction Type:</span> <span id="spanI" class="staC">__</span>
+  						<span class="staT">Total amount of interactions:</span> <span id="spanA" class="staC">__</span><br>
+                        <span class="staT">Video File 2:</span> <span id="spanF2" class="staC">__</span>
+  						<span class="staT">Learners:</span> <span id="spanL2" class="staC">__</span>
+  						<span class="staT">Interaction Type:</span> <span id="spanI2" class="staC">__</span>
+  						<span class="staT">Total amount of interactions:</span> <span id="spanA2" class="staC">__</span>
+                    </div>
+             </div>                             
+    		<hr/>
+ 	<!------------------------- Chart Zone ---------------------------->   
+    		<div class="row" >
+    			<div id="divChart"  class="divChart"></div>
+    			<div id="divTable" class="divTable" style="margin-left: 30px"></div>
+    			
+    		</div>  
+ 
+    		<hr/>  
+    <!------------------------- Chart Zone ---------------------------->  
+    	</div>
+    	<!-- /. PAGE INNER  -->
+	</div>
+<!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+
+</body>
+</html>
